@@ -40,19 +40,19 @@ class GameData {
     fun getClasses(): List<CharacterClass> {
         return listOf(
             CharacterClass(
-                name = "Guerreiro",
+                name = "Warrior",
                 description = "Especialista em combate corpo a corpo com alta resistência.",
                 bonusStats = mapOf("força" to 4, "constituição" to 3)
             ),
             CharacterClass(
-                name = "Arqueiro",
+                name = "Archer",
                 description = "Especialista em combate à distância com alta agilidade.",
                 bonusStats = mapOf("destreza" to 4, "carisma" to 2)
             ),
             CharacterClass(
-                name = "Mago",
+                name = "Mage",
                 description = "Especialista em magia com alta inteligência e habilidades mágicas.",
-                bonusStats = mapOf("inteligência" to 5, "mana" to 5)
+                bonusStats = mapOf("inteligência" to 5)
             )
         )
     }
