@@ -3,14 +3,11 @@ import personagem.GameData
 
 fun main() {
     val gameData = GameData()
-
     val races = gameData.getRaces()
     val classes = gameData.getClasses()
-
     val selectedRace = chooseRace(races)
     val selectedClass = chooseClass(classes)
     val characterName = chooseCharacterName()
-
     val character = GameCharacter(
         name = characterName,
         race = selectedRace,

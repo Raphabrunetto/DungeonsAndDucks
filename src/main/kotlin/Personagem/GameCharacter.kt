@@ -7,7 +7,7 @@ class GameCharacter(
     val race: Race,
     val characterClass: CharacterClass
 ) {
-    // Atributos base mínimos
+    // Atributos base mínimos do player
     private val baseAttributes = mutableMapOf(
         "força" to 8,
         "destreza" to 8,
@@ -19,11 +19,6 @@ class GameCharacter(
 
     // Atributos finais considerando bônus de raça e classe
     private val finalAttributes = baseAttributes.toMutableMap()
-    private val raceClassBonuses = baseAttributes.map { (attribute, baseValue) ->
-        val bonusFromRace = race.bonusStats[attribute] ?: 0
-        val bonusFromClass = characterClass.bonusStats[attribute] ?: 0
-        attribute to min(16, baseValue + bonusFromRace + bonusFromClass)
-    }.toMap().toMutableMap()
 
     // Pontos disponíveis para distribuir
     private var pontosRestantes = 27
@@ -33,23 +28,31 @@ class GameCharacter(
         applyRaceAndClassBonuses()
     }
 
+    private fun applyRaceAndClassBonuses() {
+        // Aplica os bônus de raça
+        race.bonusStats.forEach { (attribute, bonus) ->
+            finalAttributes[attribute.lowercase()] = (finalAttributes[attribute.lowercase()] ?: 0) + bonus
+        }
+
+        // Aplica os bônus de classe
+        characterClass.bonusStats.forEach { (attribute, bonus) ->
+            finalAttributes[attribute.lowercase()] = (finalAttributes[attribute.lowercase()] ?: 0) + bonus
+        }
+
+        // Garantir que nenhum atributo exceda 16 após aplicação dos bônus
+        finalAttributes.forEach { (attribute, value) ->
+            finalAttributes[attribute] = min(16, value)
+        }
+    }
+
     // Função para distribuir pontos
     fun distribuirPontosAtributos(i: Int) {
         while (pontosRestantes > 0) {
             println("Distribua seus pontos entre os atributos (total disponível: $pontosRestantes):")
 
-            val iterator = finalAttributes.iterator()
-            var continueLoop = true
-
-            while (iterator.hasNext() && continueLoop) {
-                val (atributo, valorAtual) = iterator.next()
+            finalAttributes.forEach { (atributo, valorAtual) ->
                 // Calcula o valor máximo possível para o atributo
-                val valorMaximoPossivel = min(16, baseAttributes[atributo]!! + pontosRestantes)
-
-                // Calcula os bônus de raça e classe
-                val bonusFromRace = race.bonusStats[atributo] ?: 0
-                val bonusFromClass = characterClass.bonusStats[atributo] ?: 0
-                val valorFinal = valorAtual + bonusFromRace + bonusFromClass
+                val valorMaximoPossivel = min(16, valorAtual + pontosRestantes)
 
                 println("$atributo (Atual: $valorAtual, Máximo possível: $valorMaximoPossivel):")
                 val novoValor = readLine()?.toIntOrNull()
@@ -70,23 +73,9 @@ class GameCharacter(
                 } else {
                     println("Valor inválido para $atributo. Tente novamente.")
                 }
-
-                // Verifica se ainda há pontos restantes e continua o loop
-                if (pontosRestantes <= 0) {
-                    continueLoop = false
-                }
             }
 
             println("Pontos restantes: $pontosRestantes")
-        }
-    }
-
-    // Aplicar bônus de raça e classe aos atributos finais
-    private fun applyRaceAndClassBonuses() {
-        finalAttributes.keys.forEach { attribute ->
-            val bonusFromRace = race.bonusStats[attribute] ?: 0
-            val bonusFromClass = characterClass.bonusStats[attribute] ?: 0
-            finalAttributes[attribute] = min(16, baseAttributes[attribute]!! + bonusFromRace + bonusFromClass)
         }
     }
 
@@ -98,11 +87,11 @@ class GameCharacter(
         finalAttributes.forEach { (key, value) ->
             println("$key (Atual: $value)")
         }
-        println("Bônus de Raça: ${formatBonusStats(race.bonusStats)}")
-        println("Bônus de Classe: ${formatBonusStats(characterClass.bonusStats)}")
+        println("Bônus de Raça do personagem: ${formatBonusStats(race.bonusStats)}")
+        println("Bônus de Classe do personagem: ${formatBonusStats(characterClass.bonusStats)}")
     }
 
     private fun formatBonusStats(bonusStats: Map<String, Int>): String {
-        return bonusStats.entries.joinToString(", ") { "${it.key.replaceFirstChar { it.uppercase() }}: ${it.value}" }
+        return bonusStats.entries.joinToString(", ") { "${it.key.replaceFirstChar { char -> char.uppercase() }}: ${it.value}" }
     }
 }
