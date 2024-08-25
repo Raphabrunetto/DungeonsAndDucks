@@ -1,7 +1,7 @@
 import personagem.GameData
 
 fun main() {
-    val distribuidor = DistribuicaoPersonalizada()
+    val distribuidor = DistribuicaoPontos()
     val gameData = GameData()
     val races = gameData.getRaces()
     val classes = gameData.getClasses()
@@ -30,6 +30,5 @@ fun main() {
     println("Inteligência: ${character.inteligencia}")
     println("Sabedoria: ${character.sabedoria}")
     println("Carisma: ${character.carisma}")
-    println("\n")
     println("Pontos de Vida: ${character.pontosDeVida}")
 }

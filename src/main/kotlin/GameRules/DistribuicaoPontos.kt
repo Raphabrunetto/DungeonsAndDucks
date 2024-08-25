@@ -5,8 +5,8 @@ import java.util.logging.Level
 import java.util.logging.Logger
 import java.util.logging.SimpleFormatter
 
-class DistribuicaoPersonalizada {
-    private val logger: Logger = Logger.getLogger(DistribuicaoPersonalizada::class.java.name)
+class DistribuicaoPontos {
+    private val logger: Logger = Logger.getLogger(DistribuicaoPontos::class.java.name)
     private var pontosRestantes = 27
 
     init {
@@ -18,12 +18,12 @@ class DistribuicaoPersonalizada {
     }
 
     fun distribuirAtributos(personagem: GameCharacter, raça: Race, classe: CharacterClass) {
-        logger.info("Você tem $pontosRestantes pontos para distribuir entre os seguintes atributos. Força, Destreza, Constituição, Inteligência, Sabedoria, Carisma.")
+        logger.info("Você tem $pontosRestantes pontos para distribuir entre os seguintes atributos: Força, Destreza, Constituição, Inteligência, Sabedoria, Carisma.")
 
         aplicarBonusDeRaça(personagem, raça)
         aplicarBonusDeClasse(personagem, classe)
 
-        // Distribuir pontos restantes e atualizar atributos
+        // Distribuir os pontos restantes e atualizar  os atributos
         personagem.forca = definirAtributo("Força", personagem.forca)
         personagem.destreza = definirAtributo("Destreza", personagem.destreza)
         personagem.constituicao = definirAtributo("Constituição", personagem.constituicao)
