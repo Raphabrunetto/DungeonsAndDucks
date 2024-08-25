@@ -33,6 +33,66 @@ class GameData {
                 name = "Mountain Dwarf",
                 description = "Raça de anões que criaram sua civilização nas montanhas, são mais fortes que os normais. Força + 2",
                 bonusStats = mapOf("Força" to 2)
+            ) ,
+            Race(
+                name = "Halfling",
+                description = "Força + 2",
+                bonusStats = mapOf("Destreza" to 2)
+            ),
+            Race(
+            name = "forest gnome",
+            description ="Destreza + 2",
+            bonusStats = mapOf("Destreza" to 2)
+            ),
+            Race(
+            name = "rock gnome",
+            description = "Constituição + 1",
+            bonusStats = mapOf("Constituição" to 1)
+            ),
+            Race(
+            name = "robust halfling",
+            description = "Constituição + 1",
+            bonusStats = mapOf("Constituição" to 1)
+            ),
+            Race(
+            name = "halfling",
+            description = "Destreza + 2",
+            bonusStats = mapOf("Destreza" to 2)
+            ),
+            Race(
+            name = "high elf",
+            description = "Inteligência + 1",
+            bonusStats = mapOf("Inteligência" to 1)
+            ) ,
+            Race(
+            name = "Gnome",
+            description = "Inteligência + 2",
+            bonusStats = mapOf("Inteligência" to 2)
+            ),
+            Race(
+            name = "Tiefling",
+            description = "Inteligência + 1, Carisma + 1",
+            bonusStats = mapOf("Inteligência" to 1, "Carisma" to 1)
+            ),
+            Race(
+            name = "Hill Dwarf",
+            description = "Sabedoria + 1",
+            bonusStats = mapOf("Sabedoria" to 1)
+            ),
+            Race(
+            name = "forest elf",
+            description = "Sabedoria + 1",
+            bonusStats = mapOf("Sabedoria" to 1)
+            ),
+            Race(
+            name = "Drow",
+            description = "Carisma + 1",
+            bonusStats = mapOf("Carisma" to 1)
+            ),
+            Race(
+            name = "Lightfoot halfling",
+            description = "Carisma + 1",
+            bonusStats = mapOf("Carisma" to 1)
             )
         )
     }

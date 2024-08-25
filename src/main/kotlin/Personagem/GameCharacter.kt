@@ -8,7 +8,7 @@ class GameCharacter {
     var pontosDeVida: Int = calcularPontosDeVida()
 
     fun calcularPontosDeVida(): Int {
-        return constituicao
+        return 10 + (constituicao - 10) / 2
     }
 
     fun atualizarPontosDeVida() {
