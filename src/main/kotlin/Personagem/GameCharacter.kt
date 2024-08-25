@@ -1,11 +1,3 @@
-package org.example
-
-import java.util.Scanner
-import java.util.logging.Logger
-import java.util.logging.Level
-import java.util.logging.ConsoleHandler
-import java.util.logging.SimpleFormatter
-
 class GameCharacter {
     var forca: Int = 8
     var destreza: Int = 8
@@ -13,9 +5,13 @@ class GameCharacter {
     var inteligencia: Int = 8
     var sabedoria: Int = 8
     var carisma: Int = 8
-    var pontosDeVida: Int = 10
+    var pontosDeVida: Int = calcularPontosDeVida()
 
-    fun calcularPontosDeVida() {
-        pontosDeVida = 10 + ((constituicao - 10) / 2)
+    fun calcularPontosDeVida(): Int {
+        return constituicao
+    }
+
+    fun atualizarPontosDeVida() {
+        pontosDeVida = calcularPontosDeVida()
     }
 }

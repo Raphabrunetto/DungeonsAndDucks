@@ -1,5 +1,3 @@
-import org.example.DistribuicaoPersonalizada
-import org.example.GameCharacter
 import personagem.GameData
 
 fun main() {
@@ -30,4 +28,5 @@ fun main() {
     println("Inteligência: ${character.inteligencia}")
     println("Sabedoria: ${character.sabedoria}")
     println("Carisma: ${character.carisma}")
+    println("Pontos de Vida: ${character.pontosDeVida}")
 }

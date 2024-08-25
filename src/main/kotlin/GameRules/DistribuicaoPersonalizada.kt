@@ -1,11 +1,9 @@
-package org.example
-
+import personagem.CharacterClass
+import personagem.Race
 import java.util.logging.ConsoleHandler
 import java.util.logging.Level
 import java.util.logging.Logger
 import java.util.logging.SimpleFormatter
-import personagem.CharacterClass
-import personagem.Race
 
 class DistribuicaoPersonalizada {
     private val logger: Logger = Logger.getLogger(DistribuicaoPersonalizada::class.java.name)
@@ -19,23 +17,22 @@ class DistribuicaoPersonalizada {
         logger.useParentHandlers = false
     }
 
-    // Função atualizada
     fun distribuirAtributos(personagem: GameCharacter, raça: Race, classe: CharacterClass) {
-        logger.info("Você tem $pontosRestantes pontos para distribuir entre os atributos.")
+        logger.info("Você tem $pontosRestantes pontos para distribuir entre os seguintes atributos. Força, Destreza, Constituição, Inteligência, Sabedoria, Carisma.")
 
-        // Aplicar bônus de raça e classe
         aplicarBonusDeRaça(personagem, raça)
         aplicarBonusDeClasse(personagem, classe)
 
-        // Distribuir pontos restantes
+        // Distribuir pontos restantes e atualizar atributos
         personagem.forca = definirAtributo("Força", personagem.forca)
         personagem.destreza = definirAtributo("Destreza", personagem.destreza)
         personagem.constituicao = definirAtributo("Constituição", personagem.constituicao)
         personagem.inteligencia = definirAtributo("Inteligência", personagem.inteligencia)
         personagem.sabedoria = definirAtributo("Sabedoria", personagem.sabedoria)
         personagem.carisma = definirAtributo("Carisma", personagem.carisma)
-    }
 
+        personagem.atualizarPontosDeVida()
+    }
 
     private fun aplicarBonusDeRaça(personagem: GameCharacter, raça: Race) {
         raça.bonusStats.forEach { (atributo, bonus) ->
