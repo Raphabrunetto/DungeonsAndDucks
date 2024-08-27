@@ -1,5 +1,5 @@
-import personagem.CharacterClass
-import personagem.Race
+import Personagem.IRaca
+import personagem.IClass
 import java.util.logging.ConsoleHandler
 import java.util.logging.Level
 import java.util.logging.Logger
@@ -10,20 +10,21 @@ class DistribuicaoPontos {
     private var pontosRestantes = 27
 
     init {
-        val consoleHandler = ConsoleHandler()
-        consoleHandler.level = Level.ALL
-        consoleHandler.formatter = SimpleFormatter()
+        val consoleHandler = ConsoleHandler().apply {
+            level = Level.ALL
+            formatter = SimpleFormatter()
+        }
         logger.addHandler(consoleHandler)
         logger.useParentHandlers = false
     }
 
-    fun distribuirAtributos(personagem: GameCharacter, raça: Race, classe: CharacterClass) {
+    fun distribuirAtributos(personagem: GameCharacter, raça: IRaca, classe: IClass) {
         logger.info("Você tem $pontosRestantes pontos para distribuir entre os seguintes atributos: Força, Destreza, Constituição, Inteligência, Sabedoria, Carisma.")
 
         aplicarBonusDeRaça(personagem, raça)
         aplicarBonusDeClasse(personagem, classe)
 
-        // Distribuir os pontos restantes e atualizar  os atributos
+        // Distribuir os pontos restantes e atualizar os atributos
         personagem.forca = definirAtributo("Força", personagem.forca)
         personagem.destreza = definirAtributo("Destreza", personagem.destreza)
         personagem.constituicao = definirAtributo("Constituição", personagem.constituicao)
@@ -34,9 +35,9 @@ class DistribuicaoPontos {
         personagem.atualizarPontosDeVida()
     }
 
-    private fun aplicarBonusDeRaça(personagem: GameCharacter, raça: Race) {
+    private fun aplicarBonusDeRaça(personagem: GameCharacter, raça: IRaca) {
         raça.bonusStats.forEach { (atributo, bonus) ->
-            when (atributo.toLowerCase()) {
+            when (atributo.lowercase()) {
                 "força" -> personagem.forca += bonus
                 "destreza" -> personagem.destreza += bonus
                 "constituição" -> personagem.constituicao += bonus
@@ -47,9 +48,9 @@ class DistribuicaoPontos {
         }
     }
 
-    private fun aplicarBonusDeClasse(personagem: GameCharacter, classe: CharacterClass) {
+    private fun aplicarBonusDeClasse(personagem: GameCharacter, classe: IClass) {
         classe.bonusStats.forEach { (atributo, bonus) ->
-            when (atributo.toLowerCase()) {
+            when (atributo.lowercase()) {
                 "força" -> personagem.forca += bonus
                 "destreza" -> personagem.destreza += bonus
                 "constituição" -> personagem.constituicao += bonus
@@ -67,19 +68,18 @@ class DistribuicaoPontos {
 
         while (!entradaValida) {
             println("Preencha a $nomeAtributo (valor inicial: $valorInicial): ")
-            val entrada = readLine()
+            val entrada = readLine()?.toIntOrNull()
 
-            val pontosAdicionados = entrada?.toIntOrNull()
-            if (pontosAdicionados == null) {
+            if (entrada == null) {
                 println("Entrada inválida. Digite um número inteiro.")
                 continue
             }
 
-            val valorFinal = valorInicial + pontosAdicionados
+            val valorFinal = valorInicial + entrada
 
-            if (pontosAdicionados <= pontosRestantes && valorFinal in 8..limitePontos) {
+            if (entrada <= pontosRestantes && valorFinal in 8..limitePontos) {
                 novoValor = valorFinal
-                pontosRestantes -= pontosAdicionados
+                pontosRestantes -= entrada
 
                 println("$novoValor pontos de $nomeAtributo")
                 println("$pontosRestantes pontos restantes")
@@ -91,7 +91,7 @@ class DistribuicaoPontos {
                 if (escolha == 1) {
                     entradaValida = true
                 } else if (escolha == 2) {
-                    pontosRestantes += pontosAdicionados
+                    pontosRestantes += entrada
                     novoValor = valorInicial
                     println("Os pontos de $nomeAtributo foram resetados para $valorInicial.")
                 } else {

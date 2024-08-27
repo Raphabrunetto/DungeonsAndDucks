@@ -1,8 +1,9 @@
-import personagem.Race
-import personagem.CharacterClass
+import Personagem.IRaca
+import personagem.*
 import kotlin.system.exitProcess
 
-fun chooseRace(races: List<Race>): Race {
+fun chooseRace(races: List<IRaca>): IRaca {
+    println("\n")
     println("Escolha uma raça (digite o nome):")
     races.forEach { race ->
         println("${race.name}: ${race.description}")
@@ -17,9 +18,9 @@ fun chooseRace(races: List<Race>): Race {
         println("Raça não encontrada. Saindo do programa.")
         exitProcess(1)
     }
-}
 
-fun chooseClass(classes: List<CharacterClass>): CharacterClass {
+}fun chooseClass(classes: List<IClass>): IClass {
+    println("\n")
     println("Escolha uma classe (digite o nome):")
     classes.forEach { characterClass ->
         println("${characterClass.name}: ${characterClass.description}")
@@ -37,6 +38,7 @@ fun chooseClass(classes: List<CharacterClass>): CharacterClass {
 }
 
 fun chooseCharacterName(): String {
+    println("\n")
     println("Digite o nome do seu personagem:")
     return readLine() ?: run {
         println("Nome inválido. Saindo do programa.")

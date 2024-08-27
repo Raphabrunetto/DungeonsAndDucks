@@ -1,10 +1,16 @@
-import personagem.GameData
+import Personagem.IRaca
+import personagem.*
 
 fun main() {
     val distribuidor = DistribuicaoPontos()
-    val gameData = GameData()
-    val races = gameData.getRaces()
-    val classes = gameData.getClasses()
+    val races: List<IRaca> = listOf(
+        Human(), Elf(), Dwarf(), Halfling(), ForestGnome(), RockGnome(),
+        RobustHalfling(), HighElf(), Gnome(), Tiefling(),
+        HillDwarf(), ForestElf(), Drow(), LightfootHalfling()
+    )
+    val classes: List<IClass> = listOf(
+        Warrior(), Archer(), Mage()
+    )
 
     // Escolha da raça e da classe
     val selectedRace = chooseRace(races)
