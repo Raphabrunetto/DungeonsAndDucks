@@ -1,10 +1,11 @@
+package gamerules
+
 import Personagem.IRaca
-import personagem.*
+import personagem.* // Certifique-se de que você tem todas as importações necessárias
 import kotlin.system.exitProcess
 
 fun chooseRace(races: List<IRaca>): IRaca {
-    println("\n")
-    println("Escolha uma raça (digite o nome):")
+    println("\nEscolha uma raça (digite o nome):")
     races.forEach { race ->
         println("${race.name}: ${race.description}")
     }
@@ -18,10 +19,10 @@ fun chooseRace(races: List<IRaca>): IRaca {
         println("Raça não encontrada. Saindo do programa.")
         exitProcess(1)
     }
+}
 
-}fun chooseClass(classes: List<IClass>): IClass {
-    println("\n")
-    println("Escolha uma classe (digite o nome):")
+fun chooseClass(classes: List<IClass>): IClass {
+    println("\nEscolha uma classe (digite o nome):")
     classes.forEach { characterClass ->
         println("${characterClass.name}: ${characterClass.description}")
     }
@@ -38,9 +39,8 @@ fun chooseRace(races: List<IRaca>): IRaca {
 }
 
 fun chooseCharacterName(): String {
-    println("\n")
-    println("Digite o nome do seu personagem:")
-    return readLine() ?: run {
+    println("\nDigite o nome do seu personagem:")
+    return readLine()?.takeIf { it.isNotBlank() } ?: run {
         println("Nome inválido. Saindo do programa.")
         exitProcess(1)
     }

@@ -1,3 +1,4 @@
+import Personagem.DistribuicaoAtributosStrategy
 import Personagem.IRaca
 import personagem.IClass
 import java.util.logging.ConsoleHandler
@@ -5,7 +6,8 @@ import java.util.logging.Level
 import java.util.logging.Logger
 import java.util.logging.SimpleFormatter
 
-class DistribuicaoPontos {
+
+class DistribuicaoPontos(private val estrategia: DistribuicaoAtributosStrategy) {
     private val logger: Logger = Logger.getLogger(DistribuicaoPontos::class.java.name)
     private var pontosRestantes = 27
 
@@ -36,29 +38,11 @@ class DistribuicaoPontos {
     }
 
     private fun aplicarBonusDeRaça(personagem: GameCharacter, raça: IRaca) {
-        raça.bonusStats.forEach { (atributo, bonus) ->
-            when (atributo.lowercase()) {
-                "força" -> personagem.forca += bonus
-                "destreza" -> personagem.destreza += bonus
-                "constituição" -> personagem.constituicao += bonus
-                "inteligência" -> personagem.inteligencia += bonus
-                "sabedoria" -> personagem.sabedoria += bonus
-                "carisma" -> personagem.carisma += bonus
-            }
-        }
+        estrategia.aplicarBonus(personagem, raça.bonusStats)
     }
 
     private fun aplicarBonusDeClasse(personagem: GameCharacter, classe: IClass) {
-        classe.bonusStats.forEach { (atributo, bonus) ->
-            when (atributo.lowercase()) {
-                "força" -> personagem.forca += bonus
-                "destreza" -> personagem.destreza += bonus
-                "constituição" -> personagem.constituicao += bonus
-                "inteligência" -> personagem.inteligencia += bonus
-                "sabedoria" -> personagem.sabedoria += bonus
-                "carisma" -> personagem.carisma += bonus
-            }
-        }
+        estrategia.aplicarBonus(personagem, classe.bonusStats)
     }
 
     private fun definirAtributo(nomeAtributo: String, valorInicial: Int): Int {
