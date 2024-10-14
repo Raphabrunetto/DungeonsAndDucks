@@ -13,7 +13,7 @@ class GameCharacter(
     var inteligencia: Int = 8,
     var sabedoria: Int = 8,
     var carisma: Int = 8,
-    var pontosDeVida: Int = 8 // HP inicial padrão
+    var pontosDeVida: Int = 10 // HP inicial padrão
 ) {
     fun atualizarPontosDeVida() {
         pontosDeVida = 10 + (constituicao -10) / 2
