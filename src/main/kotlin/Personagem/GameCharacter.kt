@@ -16,7 +16,7 @@ class GameCharacter(
     var pontosDeVida: Int = 8 // HP inicial padrão
 ) {
     fun atualizarPontosDeVida() {
-        pontosDeVida = 10 + (constituicao * 2/10) // Corrigido para 'constituicao'
+        pontosDeVida = 10 + (constituicao -10) / 2
     }
 
     override fun toString(): String {
