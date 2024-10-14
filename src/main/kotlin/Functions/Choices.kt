@@ -1,5 +1,5 @@
-import Personagem.IRaca
-import personagem.*
+import Interfaces.IClass
+import Interfaces.IRaca
 import kotlin.system.exitProcess
 
 fun chooseRace(races: List<IRaca>): IRaca {

@@ -1,9 +1,10 @@
-import Personagem.IRaca
-import personagem.IClass
+import Interfaces.IRaca
+import Interfaces.IClass
 import java.util.logging.ConsoleHandler
 import java.util.logging.Level
 import java.util.logging.Logger
 import java.util.logging.SimpleFormatter
+import personagem.GameCharacter
 
 class DistribuicaoPontos {
     private val logger: Logger = Logger.getLogger(DistribuicaoPontos::class.java.name)

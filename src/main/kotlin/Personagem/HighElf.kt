@@ -1,8 +1,8 @@
 package personagem
 
-import Personagem.IRaca
+import Interfaces.IRaca
 
-class HighElf : IRaca {
+class HighElf(override val nome: String) : IRaca {
     override val name = "High Elf"
     override val description = "Inteligência + 1"
     override val bonusStats = mapOf("Inteligência" to 1)

@@ -1,5 +1,7 @@
 package personagem
 
+import Interfaces.IClass
+
 class Archer : IClass {
     override val name = "Archer"
     override val description = "Especialista em combate à distância com alta agilidade. destreza + 4, carisma + 2"
