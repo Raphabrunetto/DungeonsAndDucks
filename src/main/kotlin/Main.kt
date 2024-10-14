@@ -37,6 +37,8 @@ fun main() {
     // Distribuir atributos
     distribuidor.distribuirAtributos(character, selectedRace, selectedClass)
 
+    character.atualizarPontosDeVida()
+
     // Exibir informações do personagem
     println("\nPersonagem criado: $characterName")
     println("Raça: ${selectedRace.name}")
