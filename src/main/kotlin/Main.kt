@@ -56,11 +56,6 @@ fun main() {
     // Criação do personagem
     val character = GameCharacter(nome = characterName, classe = selectedClass, raca = selectedRace)
 
-    // Distribuição manual de pontos
-    distribuidor.distribuirPontosJogador(character)
-
-    // Aplicar bônus de raça e classe
-    distribuidor.distribuirAtributos(character, selectedRace, selectedClass)
 
     // Atualizar pontos de vida
     character.atualizarPontosDeVida()
