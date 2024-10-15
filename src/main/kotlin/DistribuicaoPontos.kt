@@ -68,4 +68,27 @@ class DistribuicaoPontos {
 
         return false
     }
+
+    // Exemplo de raças e classes
+    data class Raca(override val bonusStats: Map<String, Int>) : IRaca
+    data class Classe(override val bonusStats: Map<String, Int>) : IClass
+
+    fun obterRacaEscolhida(racaEscolhida: String): IRaca {
+        return when (racaEscolhida) {
+            "Humano" -> Raca(mapOf("força" to 1))
+            "Elfo" -> Raca(mapOf("destreza" to 2))
+            // Adicione mais raças conforme necessário
+            else -> Raca(emptyMap())
+        }
+    }
+
+    fun obterClasseEscolhida(classeEscolhida: String): IClass {
+        return when (classeEscolhida) {
+            "Guerreiro" -> Classe(mapOf("força" to 2))
+            "Mago" -> Classe(mapOf("inteligência" to 3))
+            // Adicione mais classes conforme necessário
+            else -> Classe(emptyMap())
+        }
+    }
+
 }

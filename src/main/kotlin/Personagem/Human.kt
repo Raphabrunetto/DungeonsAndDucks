@@ -2,7 +2,7 @@ package personagem
 
 import Interfaces.IRaca
 
-class Human(override val nome: String) : IRaca {
+class Human: IRaca {
     override val name = "Human"
     override val description = "Um guerreiro com estatísticas medianas. Força, Destreza, Constituição, Inteligência, Sabedoria, Carisma + 1"
     override val bonusStats = mapOf(
