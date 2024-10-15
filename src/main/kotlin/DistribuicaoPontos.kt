@@ -5,21 +5,23 @@ import Interfaces.IClass
 import kotlin.system.exitProcess
 
 class DistribuicaoPontos {
-    fun distribuirAtributos(personagem: GameCharacter, raca: IRaca, classe: IClass) {
-        // Aplica os bônus da raça
-        raca.bonusStats.forEach { (atributo, valor) ->
-            when (atributo.lowercase()) {
-                "força" -> personagem.forca += valor
-                "destreza" -> personagem.destreza += valor
-                "constituição" -> personagem.constituicao += valor
-                "inteligência" -> personagem.inteligencia += valor
-                "sabedoria" -> personagem.sabedoria += valor
-                "carisma" -> personagem.carisma += valor
-            }
-        }
 
-        // Aplica os bônus da classe
-        classe.bonusStats.forEach { (atributo, valor) ->
+    fun distribuirAtributosIniciais(personagem: GameCharacter, raca: IRaca, classe: IClass) {
+
+        personagem.forca = 8
+        personagem.destreza = 8
+        personagem.constituicao = 8
+        personagem.inteligencia = 8
+        personagem.sabedoria = 8
+        personagem.carisma = 8
+
+        aplicarBonus(raca.bonusStats, personagem)
+
+        aplicarBonus(classe.bonusStats, personagem)
+    }
+
+    private fun aplicarBonus(bonusStats: Map<String, Int>, personagem: GameCharacter) {
+        bonusStats.forEach { (atributo, valor) ->
             when (atributo.lowercase()) {
                 "força" -> personagem.forca += valor
                 "destreza" -> personagem.destreza += valor
@@ -31,31 +33,39 @@ class DistribuicaoPontos {
         }
     }
 
-    fun distribuirPontosJogador(personagem: GameCharacter) {
-        var pontosRestantes = 27
-
-        fun alocarPontos(atributo: String): Int {
-            while (true) {
-                println("Você tem $pontosRestantes pontos restantes. Quantos pontos deseja alocar para $atributo? (mínimo 8, máximo 15)")
-                val pontos = readLine()?.toIntOrNull() ?: 0
-                if (pontos in 8..15 && (pontosRestantes - (pontos - 8)) >= 0) {
-                    pontosRestantes -= (pontos - 8)
-                    return pontos
-                } else {
-                    println("Entrada inválida. Tente novamente.")
-                }
-            }
+    fun ajustarAtributo(atributo: String, personagem: GameCharacter, aumento: Boolean): Boolean {
+        val valorAtual = when (atributo.lowercase()) {
+            "força" -> personagem.forca
+            "destreza" -> personagem.destreza
+            "constituição" -> personagem.constituicao
+            "inteligência" -> personagem.inteligencia
+            "sabedoria" -> personagem.sabedoria
+            "carisma" -> personagem.carisma
+            else -> return false
         }
 
-        personagem.forca = alocarPontos("Força")
-        personagem.destreza = alocarPontos("Destreza")
-        personagem.constituicao = alocarPontos("Constituição")
-        personagem.inteligencia = alocarPontos("Inteligência")
-        personagem.sabedoria = alocarPontos("Sabedoria")
-        personagem.carisma = alocarPontos("Carisma")
+        if (aumento && valorAtual < 15) {
+            when (atributo.lowercase()) {
+                "força" -> personagem.forca += 1
+                "destreza" -> personagem.destreza += 1
+                "constituição" -> personagem.constituicao += 1
+                "inteligência" -> personagem.inteligencia += 1
+                "sabedoria" -> personagem.sabedoria += 1
+                "carisma" -> personagem.carisma += 1
+            }
+            return true
+        } else if (!aumento && valorAtual > 8) {
+            when (atributo.lowercase()) {
+                "força" -> personagem.forca -= 1
+                "destreza" -> personagem.destreza -= 1
+                "constituição" -> personagem.constituicao -= 1
+                "inteligência" -> personagem.inteligencia -= 1
+                "sabedoria" -> personagem.sabedoria -= 1
+                "carisma" -> personagem.carisma -= 1
+            }
+            return true
+        }
 
-        println("Distribuição de pontos finalizada. Atributos definidos:")
-        println("Força: ${personagem.forca}, Destreza: ${personagem.destreza}, Constituição: ${personagem.constituicao}")
-        println("Inteligência: ${personagem.inteligencia}, Sabedoria: ${personagem.sabedoria}, Carisma: ${personagem.carisma}")
+        return false
     }
 }
